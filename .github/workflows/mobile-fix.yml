@@ -70,7 +70,7 @@ jobs:
               s = s.replace('</style>', mobile_css + '\n</style>', 1)
 
           # Add a compact hamburger button immediately before the desktop CTA.
-          if 'mobile-menu-btn' not in s:
+          if '<button class="mobile-menu-btn"' not in s:
               needle = '<a class="btn primary" href="https://wa.me/5566996328178?text=Olá%20Rogério!%20Gostaria%20de%20solicitar%20um%20orçamento%20de%20TI." target="_blank">FALE COMIGO</a>'
               replacement = '<button class="mobile-menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMobileMenu()">☰</button>' + needle
               s = s.replace(needle, replacement, 1)
