@@ -1,5 +1,63 @@
 (function(){
+  function addMeta(name,content){
+    if(!document.head.querySelector('meta[name="'+name+'"]')){
+      const m=document.createElement('meta');m.name=name;m.content=content;document.head.appendChild(m);
+    }
+  }
+  function addProperty(property,content){
+    if(!document.head.querySelector('meta[property="'+property+'"]')){
+      const m=document.createElement('meta');m.setAttribute('property',property);m.content=content;document.head.appendChild(m);
+    }
+  }
+  function addLink(rel,href,type){
+    if(!document.head.querySelector('link[rel="'+rel+'"]')){
+      const l=document.createElement('link');l.rel=rel;l.href=href;if(type)l.type=type;document.head.appendChild(l);
+    }
+  }
+  function addSEO(){
+    const title='Rogério Carvalho | Serviços de TI, Redes e Segurança';
+    const description='Serviços de TI para empresas: infraestrutura, redes, firewall, segurança da informação, Windows Server, Active Directory, Linux, VMware, monitoramento, backup e suporte técnico.';
+    document.title=title;
+    addMeta('description',description);
+    addMeta('robots','index, follow, max-image-preview:large');
+    addMeta('theme-color','#087cff');
+    addMeta('author','Rogério Carvalho');
+    addLink('canonical','https://rogeriosampaiox-afk.github.io/rogerio-ti/');
+    addLink('icon','./favicon.svg','image/svg+xml');
+    addLink('manifest','./site.webmanifest');
+
+    addProperty('og:type','website');
+    addProperty('og:locale','pt_BR');
+    addProperty('og:title',title);
+    addProperty('og:description',description);
+    addProperty('og:url','https://rogeriosampaiox-afk.github.io/rogerio-ti/');
+    addProperty('og:site_name','Rogério Carvalho | Serviços de TI');
+    addProperty('og:image','https://rogeriosampaiox-afk.github.io/rogerio-ti/favicon.svg');
+    addProperty('og:image:alt','Rogério Carvalho - Serviços de TI');
+
+    addMeta('twitter:card','summary');
+    addMeta('twitter:title',title);
+    addMeta('twitter:description',description);
+    addMeta('twitter:image','https://rogeriosampaiox-afk.github.io/rogerio-ti/favicon.svg');
+
+    if(!document.getElementById('schema-local-business')){
+      const s=document.createElement('script');s.id='schema-local-business';s.type='application/ld+json';
+      s.textContent=JSON.stringify({
+        '@context':'https://schema.org',
+        '@type':'ProfessionalService',
+        name:'Rogério Carvalho | Serviços de TI',
+        url:'https://rogeriosampaiox-afk.github.io/rogerio-ti/',
+        telephone:'+55-66-99632-8178',
+        description:description,
+        areaServed:{'@type':'Country',name:'Brasil'},
+        serviceType:['Infraestrutura de TI','Redes','Segurança da Informação','Firewall','Windows Server','Linux','Virtualização','Monitoramento','Backup','Suporte Técnico']
+      });
+      document.head.appendChild(s);
+    }
+  }
+
   function init(){
+    addSEO();
     const header=document.querySelector('header');
     if(!header) return;
     const container=header.querySelector('.nav');
