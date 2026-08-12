@@ -1,0 +1,9 @@
+{
+  "name": "Rogério Carvalho | Serviços de TI",
+  "short_name": "Rogério TI",
+  "start_url": "/rogerio-ti/",
+  "display": "standalone",
+  "background_color": "#050b14",
+  "theme_color": "#087cff",
+  "description": "Infraestrutura de TI, redes, segurança, servidores, virtualização, monitoramento e suporte técnico."
+}
