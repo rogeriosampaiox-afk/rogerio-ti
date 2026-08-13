@@ -1,106 +1,28 @@
 (function(){
-  function addMeta(name,content){
-    if(!document.head.querySelector('meta[name="'+name+'"]')){
-      const m=document.createElement('meta');m.name=name;m.content=content;document.head.appendChild(m);
-    }
-  }
-  function addProperty(property,content){
-    if(!document.head.querySelector('meta[property="'+property+'"]')){
-      const m=document.createElement('meta');m.setAttribute('property',property);m.content=content;document.head.appendChild(m);
-    }
-  }
-  function addLink(rel,href,type){
-    if(!document.head.querySelector('link[rel="'+rel+'"]')){
-      const l=document.createElement('link');l.rel=rel;l.href=href;if(type)l.type=type;document.head.appendChild(l);
-    }
-  }
+  function addMeta(name,content){if(!document.head.querySelector('meta[name="'+name+'"]')){const m=document.createElement('meta');m.name=name;m.content=content;document.head.appendChild(m)}}
+  function addProperty(property,content){if(!document.head.querySelector('meta[property="'+property+'"]')){const m=document.createElement('meta');m.setAttribute('property',property);m.content=content;document.head.appendChild(m)}}
+  function addLink(rel,href,type){if(!document.head.querySelector('link[rel="'+rel+'"]')){const l=document.createElement('link');l.rel=rel;l.href=href;if(type)l.type=type;document.head.appendChild(l)}}
   function addSEO(){
     const title='Rogério Carvalho | Serviços de TI, Redes e Segurança';
     const description='Serviços de TI para empresas: infraestrutura, redes, firewall, segurança da informação, Windows Server, Active Directory, Linux, VMware, monitoramento, backup e suporte técnico.';
-    document.title=title;
-    addMeta('description',description);
-    addMeta('robots','index, follow, max-image-preview:large');
-    addMeta('theme-color','#087cff');
-    addMeta('author','Rogério Carvalho');
-    addLink('canonical','https://rogeriosampaiox-afk.github.io/rogerio-ti/');
-    addLink('icon','./favicon.svg','image/svg+xml');
-    addLink('manifest','./site.webmanifest');
-
-    addProperty('og:type','website');
-    addProperty('og:locale','pt_BR');
-    addProperty('og:title',title);
-    addProperty('og:description',description);
-    addProperty('og:url','https://rogeriosampaiox-afk.github.io/rogerio-ti/');
-    addProperty('og:site_name','Rogério Carvalho | Serviços de TI');
-    addProperty('og:image','https://rogeriosampaiox-afk.github.io/rogerio-ti/favicon.svg');
-    addProperty('og:image:alt','Rogério Carvalho - Serviços de TI');
-
-    addMeta('twitter:card','summary');
-    addMeta('twitter:title',title);
-    addMeta('twitter:description',description);
-    addMeta('twitter:image','https://rogeriosampaiox-afk.github.io/rogerio-ti/favicon.svg');
-
-    if(!document.getElementById('schema-local-business')){
-      const s=document.createElement('script');s.id='schema-local-business';s.type='application/ld+json';
-      s.textContent=JSON.stringify({
-        '@context':'https://schema.org',
-        '@type':'ProfessionalService',
-        name:'Rogério Carvalho | Serviços de TI',
-        url:'https://rogeriosampaiox-afk.github.io/rogerio-ti/',
-        telephone:'+55-66-99632-8178',
-        description:description,
-        areaServed:{'@type':'Country',name:'Brasil'},
-        serviceType:['Infraestrutura de TI','Redes','Segurança da Informação','Firewall','Windows Server','Linux','Virtualização','Monitoramento','Backup','Suporte Técnico']
-      });
-      document.head.appendChild(s);
-    }
+    document.title=title;addMeta('description',description);addMeta('robots','index, follow, max-image-preview:large');addMeta('theme-color','#087cff');addMeta('author','Rogério Carvalho');addLink('canonical','https://rogit.com.br/');addLink('icon','./favicon.svg','image/svg+xml');addLink('manifest','./site.webmanifest');
+    addProperty('og:type','website');addProperty('og:locale','pt_BR');addProperty('og:title',title);addProperty('og:description',description);addProperty('og:url','https://rogit.com.br/');addProperty('og:site_name','Rogério Carvalho | Serviços de TI');addProperty('og:image','https://rogit.com.br/favicon.svg');addProperty('og:image:alt','Rogério Carvalho - Serviços de TI');
+    addMeta('twitter:card','summary');addMeta('twitter:title',title);addMeta('twitter:description',description);addMeta('twitter:image','https://rogit.com.br/favicon.svg');
+    if(!document.getElementById('schema-local-business')){const s=document.createElement('script');s.id='schema-local-business';s.type='application/ld+json';s.textContent=JSON.stringify({'@context':'https://schema.org','@type':'ProfessionalService',name:'Rogério Carvalho | Serviços de TI',url:'https://rogit.com.br/',telephone:'+55-66-99632-8178',description:description,areaServed:{'@type':'Country',name:'Brasil'},serviceType:['Infraestrutura de TI','Redes','Segurança da Informação','Firewall','Windows Server','Linux','Virtualização','Monitoramento','Backup','Suporte Técnico']});document.head.appendChild(s)}
   }
-
+  function fixWhatsApp(){
+    const wa=document.querySelector('.float-wa');
+    if(!wa)return;
+    wa.innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.11 17.21c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.92 2.93 4.65 4.11.65.28 1.16.45 1.56.58.65.21 1.24.18 1.71.11.52-.08 1.6-.66 1.83-1.29.23-.64.23-1.18.16-1.29-.07-.12-.25-.18-.52-.32zM16.03 3.2c-7.05 0-12.78 5.73-12.78 12.78 0 2.25.59 4.45 1.7 6.39L3.14 29l6.79-1.78a12.75 12.75 0 0 0 6.1 1.55h.01c7.05 0 12.78-5.73 12.78-12.78S23.08 3.2 16.03 3.2zm0 23.41h-.01a10.6 10.6 0 0 1-5.4-1.48l-.39-.23-4.03 1.06 1.08-3.93-.25-.4a10.58 10.58 0 0 1-1.62-5.65c0-5.86 4.77-10.63 10.64-10.63 2.84 0 5.51 1.11 7.52 3.12a10.56 10.56 0 0 1 3.11 7.52c-.01 5.86-4.78 10.62-10.65 10.62z"/></svg>';
+    wa.setAttribute('aria-label','Falar no WhatsApp');wa.setAttribute('title','Falar no WhatsApp');
+    const st=document.createElement('style');st.textContent='.float-wa{background:#25D366!important;color:#fff!important;transition:transform .2s ease,box-shadow .2s ease!important}.float-wa svg{width:34px!important;height:34px!important;display:block!important}.float-wa:hover{transform:scale(1.08)!important;box-shadow:0 10px 34px rgba(37,211,102,.35)!important}@media(max-width:850px){.float-wa svg{width:32px!important;height:32px!important}}';document.head.appendChild(st);
+  }
   function init(){
-    addSEO();
-    const header=document.querySelector('header');
-    if(!header) return;
-    const container=header.querySelector('.nav');
-    const nav=header.querySelector('nav');
-    if(!container||!nav) return;
-
-    let btn=container.querySelector('.mobile-menu-btn');
-    if(!btn){
-      btn=document.createElement('button');
-      btn.className='mobile-menu-btn';
-      btn.type='button';
-      btn.setAttribute('aria-label','Abrir menu');
-      btn.setAttribute('aria-expanded','false');
-      btn.textContent='☰';
-      container.insertBefore(btn,container.querySelector('.btn'));
-    }
-
-    const style=document.createElement('style');
-    style.textContent=`
-      @media (max-width:850px){
-        header{position:sticky!important;top:0!important;z-index:99999!important;width:100%!important;background:rgba(3,9,16,.98)!important}
-        header .nav{position:relative!important;display:flex!important;align-items:center!important;justify-content:space-between!important;min-height:64px!important;width:calc(100% - 28px)!important;margin:auto!important}
-        header .mobile-menu-btn{display:flex!important;align-items:center!important;justify-content:center!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:100001!important;width:44px!important;height:44px!important;min-width:44px!important;padding:0!important;margin-left:8px!important;border:1px solid #19a7ff!important;border-radius:7px!important;background:#071525!important;color:#fff!important;font-size:23px!important;line-height:1!important;cursor:pointer!important}
-        header nav{display:none!important;position:absolute!important;left:0!important;right:0!important;top:62px!important;z-index:100000!important;flex-direction:column!important;align-items:stretch!important;gap:0!important;padding:8px!important;background:#06111d!important;border:1px solid #19a7ff!important;border-radius:8px!important;box-shadow:0 18px 40px rgba(0,0,0,.8)!important}
-        header nav.mobile-open{display:flex!important;visibility:visible!important;opacity:1!important}
-        header nav.mobile-open a{display:block!important;padding:14px!important;border-bottom:1px solid #17304a!important;color:#fff!important;font-size:14px!important;background:#06111d!important}
-        header nav.mobile-open a:last-child{border-bottom:0!important}
-        header>.container>.btn{display:none!important}
-      }
-      @media (min-width:851px){header .mobile-menu-btn{display:none!important}}
-    `;
-    document.head.appendChild(style);
-
-    btn.onclick=function(ev){
-      ev.preventDefault();ev.stopPropagation();
-      const open=nav.classList.toggle('mobile-open');
-      btn.textContent=open?'✕':'☰';
-      btn.setAttribute('aria-expanded',open?'true':'false');
-      btn.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
-    };
-    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',function(){
-      nav.classList.remove('mobile-open');btn.textContent='☰';btn.setAttribute('aria-expanded','false');
-    }));
+    addSEO();fixWhatsApp();
+    const header=document.querySelector('header');if(!header)return;const container=header.querySelector('.nav');const nav=header.querySelector('nav');if(!container||!nav)return;
+    let btn=container.querySelector('.mobile-menu-btn');if(!btn){btn=document.createElement('button');btn.className='mobile-menu-btn';btn.type='button';btn.setAttribute('aria-label','Abrir menu');btn.setAttribute('aria-expanded','false');btn.textContent='☰';container.insertBefore(btn,container.querySelector('.btn'))}
+    const style=document.createElement('style');style.textContent='@media (max-width:850px){header{position:sticky!important;top:0!important;z-index:99999!important;width:100%!important;background:rgba(3,9,16,.98)!important}header .nav{position:relative!important;display:flex!important;align-items:center!important;justify-content:space-between!important;min-height:64px!important;width:calc(100% - 28px)!important;margin:auto!important}header .mobile-menu-btn{display:flex!important;align-items:center!important;justify-content:center!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:100001!important;width:44px!important;height:44px!important;min-width:44px!important;padding:0!important;margin-left:8px!important;border:1px solid #19a7ff!important;border-radius:7px!important;background:#071525!important;color:#fff!important;font-size:23px!important;line-height:1!important;cursor:pointer!important}header nav{display:none!important;position:absolute!important;left:0!important;right:0!important;top:62px!important;z-index:100000!important;flex-direction:column!important;align-items:stretch!important;gap:0!important;padding:8px!important;background:#06111d!important;border:1px solid #19a7ff!important;border-radius:8px!important;box-shadow:0 18px 40px rgba(0,0,0,.8)!important}header nav.mobile-open{display:flex!important;visibility:visible!important;opacity:1!important}header nav.mobile-open a{display:block!important;padding:14px!important;border-bottom:1px solid #17304a!important;color:#fff!important;font-size:14px!important;background:#06111d!important}header nav.mobile-open a:last-child{border-bottom:0!important}header>.container>.btn{display:none!important}}@media (min-width:851px){header .mobile-menu-btn{display:none!important}}';document.head.appendChild(style);
+    btn.onclick=function(ev){ev.preventDefault();ev.stopPropagation();const open=nav.classList.toggle('mobile-open');btn.textContent=open?'✕':'☰';btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Fechar menu':'Abrir menu')};nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',function(){nav.classList.remove('mobile-open');btn.textContent='☰';btn.setAttribute('aria-expanded','false')}));
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
