@@ -1,0 +1,71 @@
+name: Melhorar espacamento do site
+
+on:
+  push:
+    paths:
+      - '.github/workflows/spacing-fix.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  improve-layout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Aplicar melhorias de layout
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          css=r'''
+/* ===== LAYOUT AIRY 4.1 ===== */
+:root{--section-gap:56px}
+.hero-grid{min-height:520px;gap:44px}
+.hero-copy{padding:64px 0 58px}
+.hero h1{margin:20px 0 16px}
+.hero-copy p{margin:16px 0 0;line-height:1.75}
+.hero-actions{margin:28px 0 24px}
+.trust{margin-top:22px}
+.profile-card{padding:30px}
+.profile-card p{margin:8px 0 22px}
+.profile-list{gap:12px}
+.profile-list div{padding:5px 0}
+.band{padding:42px 0}
+.band-title{margin-bottom:22px}.band-title h2{font-size:26px}
+.services{gap:16px}.service{min-height:104px;padding:20px 18px;align-items:flex-start}.service .ico{font-size:31px;margin-top:2px}.service b{font-size:14px;margin-bottom:5px}.service small{font-size:11px;line-height:1.5}
+.techbar{padding:42px 0}.tech-head,.cases-head,.plans-head{margin-bottom:20px}.tech-head h2,.cases-head h2,.plans-head h2{font-size:25px}.tech{gap:12px}.tech div{height:58px}
+.mid{padding:42px 0 54px}.cases{gap:18px}.case{min-height:132px}.case-body{padding:18px}.case-body b{font-size:14px}.case-body p{font-size:11px;line-height:1.5;margin:7px 0 10px}
+.bottom-grid{margin-top:34px;gap:24px}.plans{gap:18px}.plan{padding:24px}.plan h3{font-size:18px;margin-bottom:14px}.plan ul{gap:9px;margin-bottom:20px}.plan li{font-size:12px;line-height:1.45}.aboutbox{padding:28px}.aboutbox h3{font-size:24px;margin-bottom:12px}.aboutbox p{font-size:12px;line-height:1.65}
+.contact{padding:48px 0}.contact-grid{grid-template-columns:310px 1fr;gap:36px}.contact-info h2{font-size:28px;margin-bottom:8px}.contact-info p{font-size:12px;line-height:1.6}.contact-info .phone{font-size:20px;margin-top:12px}.contact form{gap:12px}input,select,textarea{min-height:46px;padding:12px;font-size:12px}textarea{min-height:96px}
+.footer{padding:28px 0}.footer .wrap{gap:24px}.footer img{width:175px}
+@media(max-width:1000px){
+  .hero-grid{gap:22px;padding-bottom:18px}.hero-copy{padding:54px 0 28px}.profile-card{margin:0 0 36px;padding:26px}
+  .band,.techbar,.mid,.contact{padding:44px 0}.services{gap:14px}.service{min-height:96px}.tech{gap:10px}.bottom-grid{margin-top:30px}.contact-grid{gap:24px}
+}
+@media(max-width:600px){
+  .hero-copy{padding:44px 0 30px}.hero h1{margin:18px 0 14px;line-height:1.08}.hero-copy p{line-height:1.65;margin-top:14px}.hero-actions{margin:24px 0 20px}.trust{margin-top:18px;gap:12px}
+  .profile-card{margin-bottom:34px;padding:22px}.profile-list{gap:10px}.profile-list div{padding:3px 0}
+  .band,.techbar,.mid,.contact{padding:42px 0}.band-title,.tech-head,.cases-head,.plans-head{margin-bottom:22px}.band-title h2,.tech-head h2,.cases-head h2,.plans-head h2{font-size:24px}
+  .services{gap:14px}.service{min-height:110px;padding:20px}.service b{font-size:15px}.service small{font-size:12px;line-height:1.55}
+  .tech{gap:12px}.tech div{height:62px;font-size:12px}
+  .cases{gap:16px}.case{min-height:140px;grid-template-columns:38% 62%}.case-body{padding:16px}.case-body b{font-size:14px}.case-body p{font-size:11px}
+  .bottom-grid{margin-top:34px;gap:22px}.plans{gap:16px}.plan{padding:24px}.aboutbox{padding:24px}
+  .contact-grid{gap:28px}.contact-info h2{font-size:26px}.contact form{gap:12px}input,select,textarea{min-height:48px;font-size:13px}.footer{padding:30px 0 92px}
+}
+'''
+          marker='/* ===== LAYOUT AIRY 4.1 ===== */'
+          if marker not in s:
+              s=s.replace('</style>', css+'\n</style>',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'style: mais respiro entre secoes e cards [skip ci]'
+          git push
