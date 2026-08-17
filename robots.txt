@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rogeriosampaiox-afk.github.io/rogerio-ti/sitemap.xml
+Sitemap: https://rogit.com.br/sitemap.xml
