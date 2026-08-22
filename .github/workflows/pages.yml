@@ -23,41 +23,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
-      - name: Build polished static site
-        shell: bash
-        run: |
-          mkdir -p _site
-          rsync -a --exclude '.git' --exclude '.github' --exclude '_site' ./ _site/
-          python3 - <<'PY'
-          from pathlib import Path
-
-          root = Path('_site')
-          css = '<link rel="stylesheet" href="/premium.css?v=20260822">'
-
-          for page in root.rglob('*.html'):
-              if page.name.startswith('google'):
-                  continue
-              text = page.read_text(encoding='utf-8')
-              if '/premium.css' not in text and '</head>' in text:
-                  text = text.replace('</head>', css + '</head>', 1)
-
-              # Corrige metadados da prévia social do cartão digital.
-              if page.as_posix().endswith('sites/index.html') or page.name == 'sites.html':
-                  text = text.replace('og:image:width\" content=\"400', 'og:image:width\" content=\"1200')
-                  text = text.replace('og:image:height\" content=\"210', 'og:image:height\" content=\"630')
-
-              page.write_text(text, encoding='utf-8')
-          PY
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: './_site'
-
+          path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
