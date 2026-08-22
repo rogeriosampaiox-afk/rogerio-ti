@@ -23,12 +23,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Build site with global navigation
+        shell: bash
+        run: |
+          mkdir -p _site
+          rsync -a --exclude '.git' --exclude '.github' --exclude '_site' ./ _site/
+          python3 - <<'PY'
+          from pathlib import Path
+          root = Path('_site')
+          tag = '<script src="/global-nav.js?v=20260822" defer></script>'
+          for page in root.rglob('*.html'):
+              if page.name.startswith('google'):
+                  continue
+              text = page.read_text(encoding='utf-8')
+              if '/global-nav.js' not in text and '</head>' in text:
+                  text = text.replace('</head>', tag + '</head>', 1)
+              page.write_text(text, encoding='utf-8')
+          PY
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: '.'
+          path: './_site'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
