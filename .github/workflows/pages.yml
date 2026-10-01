@@ -32,7 +32,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           root = Path('_site')
-          tag = '<script src="/global-nav.js?v=20260822" defer></script>'
+          tag = '<script src="/global-nav.js?v=20261001" defer></script>'
           for page in root.rglob('*.html'):
               if page.name.startswith('google'):
                   continue
